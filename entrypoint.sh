@@ -22,13 +22,17 @@ if [ ! -z "$name" ]; then
 params="${params} --name $name"
 fi
 
-if [ "$deploy" == "true" ]; then
-params="${params} --deploy"
+if [ ! -z "$timeout" ]; then
+params="${params} --timeout $timeout"
+fi
+
+if [ "$timeout" == "wait" ]; then
+params="${params} --wait"
 fi
 
 if [ ! -z "$wd" ]; then
 cd $wd
 fi
 
-echo running: okteto push $params on $(pwd)
-okteto push $params
+echo running: okteto deploy $params on $(pwd)
+okteto deploy $params
