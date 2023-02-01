@@ -5,15 +5,16 @@ inputs:
     description: 'If present, the namespace scope for this action. If not specified, it will use the current context'
     required: false
   name: 
-    description: "The name of the deployment. If missing it will use the one in your okteto.yml file"
+    description: "Development environment name"
     required: false
-  deploy: 
-    description: "Create the deployment if it doesn't exist in the namespace. If not specified, the action will fail if the deployment doesn't exist"
+  timeout:
+    description: "The length of time to wait for completion, zero means never. Any other values should contain a corresponding time unit e.g. 1s, 2m, 3h  (default 5m0s)"
+    required: false
+    default: '5m0s'
+  wait:
+    description: "Wait until the development environment is deployed (defaults to false)"
     required: false
     default: 'false'
-  working-directory:
-    description: "Working directory, defaults to the root of the repo"
-    required: false
   
 runs:
   using: "docker"
@@ -21,8 +22,8 @@ runs:
   args:
     - ${{ inputs.namespace }}
     - ${{ inputs.name }}
-    - ${{ inputs.deploy }}
-    - ${{ inputs.working-directory }}
+    - ${{ inputs.timeout }}
+    - ${{ inputs.wait }}
 branding:
   color: 'green'
   icon: 'arrow-right-circle'
