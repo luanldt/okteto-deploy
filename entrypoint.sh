@@ -3,8 +3,8 @@ set -e
 
 namespace=$1
 name=$2
-deploy=$3
-wd=$4
+timeout=$3
+wait=$4
 
 params=""
 
@@ -28,10 +28,6 @@ fi
 
 if [ "$timeout" == "wait" ]; then
 params="${params} --wait"
-fi
-
-if [ ! -z "$wd" ]; then
-cd $wd
 fi
 
 echo running: okteto deploy $params on $(pwd)
